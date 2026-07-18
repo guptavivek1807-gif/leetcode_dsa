@@ -11,8 +11,8 @@ public:
                 largest = nums[i];
             }
         }
-        
-       while(smallest > 0) {
+   // Fix 3: Standard Euclidean algorithm loop to find the GCD of those two numbers
+        while(smallest > 0) {
             int temp = largest % smallest;
             largest = smallest;
             smallest = temp;
