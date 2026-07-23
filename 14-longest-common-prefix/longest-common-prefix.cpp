@@ -8,12 +8,14 @@ public:
         string ans="";
         int minlength=min(first.size(),last.size());
         for(int i=0;i<minlength;i++){
-            if(first[i]!=last[i]) break;
-            ans+=first[i];
-
+            if(first[i]!=last[i])
+          
+             break;
+            
+           ans += first[i];
         }
 
-
+        
         return ans;
     }
 };
