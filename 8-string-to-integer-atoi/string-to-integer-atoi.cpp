@@ -31,7 +31,7 @@ int myAtoi(string s, int i = 0) {
         i++;
     }
 
-    // Call recursive helper
+    
     return helper(s, i, 0, sign);
 }
 
