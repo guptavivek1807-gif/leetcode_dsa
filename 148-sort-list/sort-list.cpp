@@ -10,56 +10,54 @@
  */
 class Solution {
 public:
-    // Find middle of linked list
-    ListNode* findMiddle(ListNode* head){
-        ListNode* slow = head;
-        ListNode* fast = head->next;
 
-        while(fast && fast->next){
-            slow = slow->next;
-            fast = fast->next->next;
+ListNode* marge(ListNode* left , ListNode* right){
+    ListNode* dummy = new ListNode(-1);
+    ListNode* temp = dummy;
+
+    while(left != NULL && right != NULL){
+        if(left->val <= right->val){
+            temp->next = left;
+            left = left->next;
+        }else{
+            temp->next = right;
+            right = right->next;
         }
-        return slow;
+         temp = temp->next;
     }
 
-    // Merge two sorted linked lists
-    ListNode* merge2LL(ListNode* left, ListNode* right){
-        ListNode* dummy = new ListNode(INT_MIN);
-        ListNode* temp = dummy;
-
-        while(left && right){
-            if(left->val < right->val){
-                temp->next = left;
-                left = left->next;
-            }else{
-                temp->next = right;
-                right = right->next;
-            }
-            temp = temp->next;
-        }
-
-        if(left) temp->next = left;
-        else temp->next = right;
-
-        return dummy->next;
+    if(left !=NULL){
+        temp->next =left;
     }
 
-    // Merge sort on linked list
-    ListNode* mergeSort(ListNode* head){
-        if(!head || !head->next) return head;
-
-        ListNode* mid = findMiddle(head);
-
-        ListNode* right = mergeSort(mid->next);
-
-        mid->next = nullptr;
-
-        ListNode* left = mergeSort(head);
-
-        return merge2LL(left,right);
+    if(right !=NULL){
+        temp->next =right;
     }
-
+    return dummy->next;
+   
+}
     ListNode* sortList(ListNode* head) {
-        return mergeSort(head);
+        if(head == NULL || head->next == NULL)  return head;
+
+
+        ListNode* fast = head;
+       ListNode* slow = head;
+        ListNode* prev = NULL;
+
+        while(fast != NULL && fast->next!= NULL){
+             prev =slow;
+             slow = slow->next;
+             fast = fast->next->next;
+        }
+ //devide into two parts
+        if(prev != NULL){
+            prev->next = NULL;
+        }
+
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(slow);
+
+return marge(left , right);
+
     }
 };
